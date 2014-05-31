@@ -1,0 +1,488 @@
+<!doctype html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+
+		<title>Functional JavaScript</title>
+
+		<meta name="description" content="Bulgaria Web Summit 2014 - Functional JavaScript">
+		<meta name="author" content="RadoRado">
+
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<link rel="stylesheet" href="css/reveal.min.css">
+		<link rel="stylesheet" href="css/theme/default.css" id="theme">
+
+		<!-- For syntax highlighting -->
+		<link rel="stylesheet" href="lib/css/zenburn.css">
+
+		<!-- If the query includes 'print-pdf', include the PDF print sheet -->
+		<script>
+			if( window.location.search.match( /print-pdf/gi ) ) {
+				var link = document.createElement( 'link' );
+				link.rel = 'stylesheet';
+				link.type = 'text/css';
+				link.href = 'css/print/pdf.css';
+				document.getElementsByTagName( 'head' )[0].appendChild( link );
+			}
+		</script>
+
+		<!--[if lt IE 9]>
+		<script src="lib/js/html5shiv.js"></script>
+		<![endif]-->
+	</head>
+
+	<body>
+
+		<div class="reveal">
+
+			<!-- Any section element inside of this container is displayed as a slide -->
+			<div class="slides">
+				<section>
+					<h1>Functional JavaScript</h1>
+					<h3>Bulgaria Web Summit 2014</h3>
+					<p>
+						<small><a href="https://github.com/RadoRado">Radoslav "Rado Rado" Georgiev</a> / <a href="http://twitter.com/Rado_g">@rado_g</a></small>
+					</p>
+				</section>
+
+				<section>
+					<h2>Hello!</h2>
+					<p>
+						Аз съм <strong>РадоРадо</strong> и се занимавам с <a href="http://hackbulgaria.com">hackbulgaria.com</a> и <a href="http://hackfmi.com">hackfmi.com</a>
+					</p>
+
+					<p>
+						Преподавам и пиша на JavaScript и Python. Обичам Haskell.
+					</p>
+
+					<p style="margin-top: 50px">
+						@Rado_g
+						<br />
+						GiitHub.com/RadoRado
+					</p>
+				</section>
+
+				<section>
+					<h2>JavaScript + Functional Programming = В.Н.Л</h2>
+				</section>
+
+				<section>
+					<h2>Ще има код.</h2>
+					<pre><code class="javascript" data-trim contenteditable style="font-size: 24px; margin-top: 50px;">
+						exports.fp = {
+  "map" : map,
+  "filter" : filter,
+  "reduce" : reduce,
+  "any" : any,
+  "all" : all,
+  "utils" : {
+    "concat" : concat,
+    "isString" : isString,
+    "contains" : contains,
+    "containsAll" : containsAll
+  }
+};
+
+					</code></pre>
+				</section>
+
+				<section>
+					<h2>Имам 4 цели за тази презентация.</h2>
+					<p style="margin-top: 50px;">
+					    <ol>
+					        <li class="fragment">Да разберете природата на JavaScript.</li>
+					        <li class="fragment"><em>Да се запознаете с част от терминологията на FP.</em></li>
+					        <li class="fragment">Когато се прибере, да разцъкате код, написан функционално.</li>
+					        <li class="fragment"><strong>Да спрете да пишете for-цикли в JavaScript!</strong></li>
+					    </ol>
+					</p>
+				</section>
+
+
+				<section>
+					<h2>The world's most misunderstood programming language.</h2>
+					<img src="images/javascript.jpg">
+				</section>
+
+				<section>
+					<h2>JavaScript подвежда</h2>
+					<ul style="margin-top: 50px">
+						<li>Синтаксисът е подобен на Java / C++ / PHP</li>
+						<li>for-loop, while-loop, if-statement са същите като в Java / C++ / PHP</li>
+						<li>Хората обичат да въртят цикли и горните неща им стигат!</li>
+					</ul>
+				</section>
+
+				<section>
+					<h2>JavaScript extends Scheme</h2>
+				</section>
+
+				<section>
+					<h2>Scheme?</h2>
+										<pre><code class="scheme" data-trim contenteditable style="font-size: 24px; margin-top: 50px;">
+(define (take l n)
+  (cond
+    ( (null? l) (list) )
+    ( (= n 0) (list) )
+    (else (cons (car l) (take (cdr l) (- n 1))))))
+
+(define (prefix? l1 l2)
+  (equal? l1 (take l2 (length l1))))
+
+(define (suffix? l1 l2)
+  (prefix? (reverse l1) (reverse l2)))
+					</code></pre>
+				</section>
+
+				<section>
+					<h2>JS === език за функционално програмиране.</h2>
+					<p style="margin-top: 50px">Ако са ви учили на JavaScript и сте въртяли само цикли, значи не са ви учили както трябва.</p>
+				</section>
+
+				<section>
+					<h2>First-class functions.</h2>
+					<p style="margin-top: 50px;">Има разлика между това:</p>
+										<pre><code class="javascript" data-trim contenteditable style="font-size: 24px;">
+function factorial(n) {
+  if (n === 0) {
+    return 1;
+  }
+  return n * factorial (n - 1);
+};
+
+					</code></pre>
+					<p style="margin-top: 50px;">И това:</p>
+					<pre><code class="javascript" data-trim contenteditable style="font-size: 24px;">
+var factorial = function(n) {
+  if (n === 0) {
+    return 1;
+  }
+  return n * factorial (n - 1);
+};
+
+console.log(typeof factorial); // 'function'
+										</code></pre>
+
+				</section>
+
+				<section>
+					<h2>Higher-order functions.</h2>
+					<ol style="margin-top: 50px;">
+						<li class="fragment">Функция, която приема за аргумент друга функция(и).</li>
+						<li class="fragment">Функция, която връша за резултат функция.</li>
+						<li class="fragment">Това е мощен инструмент за абстракция!</li>
+					</ol>
+				</section>
+
+				<section>
+					<h2>Anonymous functions.</h2>
+					<p style="margin-top: 50px">Функция без име:</p>
+					<pre><code class="javascript" data-trim contenteditable style="font-size: 24px;">
+function(x) {
+  return x * x;
+}
+										</code></pre>
+				<p style="margin-top: 50px">Може да я изпълним на място:</p>
+				<pre><code class="javascript" data-trim contenteditable style="font-size: 24px;">
+(function(x) {
+  return x * x;
+} (2)) // 4										</code></pre>
+				<p style="margin-top: 50px">Дава се като аргумент на функция от по-висок ред:</p>
+				<pre><code class="javascript" data-trim contenteditable style="font-size: 24px;">
+[1,2,3].map(function(x) {
+  x + 1;
+});; // [2,3,4]
+				</code></pre>
+				</section>
+
+				<section>
+					<h2>Искаме да не пишем for-цикли за обхождане.</h2>
+					<p style="margin-top: 50px">Твърде вербозни са за език от високо ниво като JavaScript.</p>
+
+<pre><code class="javascript" data-trim contenteditable style="margin-top:50px; font-size: 24px;">
+var a = [1,2,3], i = 0, n = a.length;
+
+for(i; i < n; i++) {
+  console.log(a[i]);
+}
+				</code></pre>
+				</section>
+
+				<section>
+					<h2>forEach</h2>
+					<pre><code class="javascript" data-trim contenteditable style="margin-top:50px; font-size: 24px;">
+// Array.prototype.forEach
+var forEach = function(action, arr) {
+  var i = 0, n = arr.length;
+
+  for(i; i < n; i++) {
+    action(arr[i], i, arr);
+  }
+};
+</code></pre>
+<pre><code class="javascript" data-trim contenteditable style="margin-top:50px; font-size: 24px;">
+forEach(function(value) {
+  console.log(value);
+}, [1,2,3]);
+				</code></pre>
+				</section>
+
+				<section>
+					<h2>map - трансформация на списъци</h2>
+				<pre><code data-trim contenteditable style="margin-top:50px; font-size: 24px;">
+map f [a1, a2, a3, a4, ..., an] -->
+
+[f(a1), f(a2), f(a3), f(a4), ..., f(an)]
+				</code></pre>
+										<pre><code class="javascript" data-trim contenteditable style="margin-top:50px; font-size: 24px;">
+// Array.prototype.map
+var map = function(f, arr) {
+  var result = [];
+
+  arr.forEach(function(value) {
+    result.push(f(value));
+  });
+
+  return result;
+};
+				</code></pre>
+				</section>
+
+				<section>
+					<h2>filter - само тези елементи, които ни устройват.</h2>
+<pre><code data-trim contenteditable style="margin-top:50px; font-size: 24px;">
+[x from [a1, a2, a3, a4, ..., an] where pred(x) === true]
+</code></pre>
+
+<pre><code class="javascript" data-trim contenteditable style="margin-top:50px; font-size: 24px;">
+					// Array.prototype.filter
+var filter = function(pred, arr) {
+  var result = [];
+
+  arr.forEach(function(value) {
+    if(pred(value)) {
+      result.push(value);
+    }
+  });
+
+  return result;
+};
+</code></pre>
+				</section>
+
+				<section>
+					<h2>reduce - сгъване на списъци</h2>
+<pre><code class="javascript" data-trim contenteditable style="margin-top:50px; font-size: 24px;">
+// Array.prototype.reduce
+var reduce = function(oper, start, arr) {
+  var accumulate = start;
+
+  arr.forEach(function(value) {
+    accumulate = oper(accumulate, value);
+  });
+
+  return accumulate;
+};
+</code></pre>
+
+
+<pre><code data-trim contenteditable style="margin-top:50px; font-size: 24px;">
+For [a1, a2, a3, a4, ..., an], a *start* and a *oper* -->
+start oper a1 oper a2 oper a3 oper a4 .... oper an
+</code></pre>
+				</section>
+
+				<section>
+					<img src="images/Lego.jpg">
+				</section>
+
+				<section>
+					<h2>Как проверяваме, че всички елементи в списък са низове?</h2>
+				</section>
+
+				<section>
+					<h2>all / any</h2>
+					<pre><code class="javascript" data-trim contenteditable style="margin-top:50px; font-size: 24px;">
+					// Array.prototype.every
+var all = function(pred, arr) {
+  return arr.length === filter(pred, arr).length;
+};
+
+// Array.prototype.some
+var any = function(pred, arr) {
+  return filter(pred, arr).length > 0;
+};
+					</code></pre>
+<pre><code class="javascript" data-trim contenteditable style="margin-top:50px; font-size: 24px;">
+var isString = function(value) {
+  return typeof value === "string";
+};
+</code></pre>
+				</section>
+
+				<section>
+					<h2>concat</h2>
+<pre><code class="javascript" data-trim contenteditable style="margin-top:50px; font-size: 24px;">
+// [String] -> String
+// Array.prototype.join
+var concat = function(arr) {
+  if(!all(isString, arr)) {
+    throw new TypeError("List not containing only strings");
+  }
+  return reduce(function(a, b) {
+    return a + b;
+  }, "", arr);
+};
+</code></pre>
+				</section>
+
+				<section>
+					<h2>contains - елемент в списък? списък в списък?</h2>
+<pre><code class="javascript" data-trim contenteditable style="margin-top:50px; font-size: 24px;">
+var contains = function(item, arr) {
+  return filter(function(value) {
+    return item === value;
+  }, arr).length > 0;
+};
+</code></pre>
+
+<pre class="fragment"><code class="javascript" data-trim contenteditable style="margin-top:50px; font-size: 24px;">
+var containsAll = function(items, arr) {
+  return all(function(boolValue) {
+    return boolValue;
+  }, map(function(needle) {
+    return contains(needle, arr);
+  }, items));
+};
+</code></pre>
+				</section>
+
+				<section>
+					<h2>logger - 4 реда абстракция</h2>
+<pre><code class="javascript" data-trim contenteditable style="margin-top:50px; font-size: 24px;">
+var logger = function(logFunction) {
+  return function(str) {
+    logFunction(str);
+  };
+};
+</code></pre>
+
+<pre class="fragment"><code class="javascript" data-trim contenteditable style="margin-top:50px; font-size: 24px;">
+var consoleLogger = logger(console.log);
+consoleLogger("There is a bug!");
+</code></pre>
+
+<pre class="fragment"><code class="javascript" data-trim contenteditable style="margin-top:50px; font-size: 24px;">
+var fileLogger = logger(function(str) {
+  fs.appendFileSync("LOG", str);
+});
+fileLogger("There is a bug");
+</code></pre>
+
+				</section>
+
+				<section>
+					<h2>groupBy</h2>
+<pre><code class="javascript" data-trim contenteditable style="margin-top:50px; font-size: 24px;">
+var groupBy = function(groupFunction, arr) {
+  var result = {};
+
+  arr.forEach(function(value, index) {
+    var group = groupFunction(value, index).toString();
+
+    if(!result[group]) {
+      result[group] = [];
+    }
+
+    result[group].push(value);
+  });
+
+  return result;
+};
+</code></pre>
+				</section>
+
+				<section>
+					<h2>Partial Application</h2>
+					<p>Black Magic. Ще ползваме <strong><a href="http://fitzgen.github.io/wu.js/">wu.js</a></strong></p>
+					<pre><code class="javascript" data-trim contenteditable style="margin-top:50px; font-size: 24px;">
+var f = function(a, b, c) {
+  return a + b + c;
+};
+
+f(1 2) ни дава:
+
+var g = function(c) {
+  return 1 + 2 + c
+};
+					</code></pre>
+				</section>
+
+				<section>
+					<h2>Functors (ако остане време).</h2>
+					<p>Как map-ваме върху String? А върху обект? А върху нещо, различно от списък?</p>
+				</section>
+
+				<section>
+					<h2>И едва загатнахме нещата. Има още много!</h2>
+					<p>Препоръката ми е - разцъкайте език за функционално програмиране, по възможност Haskell.</p>
+
+					<p>Това ще ви направи по-добри програмисти и ще пишете по-добър JavaScript код.</p>
+				</section>
+
+				<section>
+					<h2>Ресурси:</h2>
+					<ul>
+						<li>wu.js - http://fitzgen.github.io/wu.js/</li>
+						<li>Eloquent JavaScript, Chapter 6 - http://eloquentjavascript.net/chapter6.html</li>
+						<li>Learn you a haskell for Great Good! - http://learnyouahaskell.com/</li>
+					</ul>
+				</section>
+
+				<section>
+					<h2>Благодаря ви. Въпроси?</h2>
+				</section>
+			</div>
+
+		</div>
+
+		<script src="lib/js/head.min.js"></script>
+		<script src="js/reveal.min.js"></script>
+
+		<script>
+
+			// Full list of configuration options available here:
+			// https://github.com/hakimel/reveal.js#configuration
+			Reveal.initialize({
+				controls: true,
+				progress: true,
+				history: true,
+				center: true,
+
+				theme: "simple", // available themes are in /css/theme
+				transition: Reveal.getQueryHash().transition || 'default', // default/cube/page/concave/zoom/linear/fade/none
+
+				// Parallax scrolling
+				// parallaxBackgroundImage: 'https://s3.amazonaws.com/hakim-static/reveal-js/reveal-parallax-1.jpg',
+				// parallaxBackgroundSize: '2100px 900px',
+
+				// Optional libraries used to extend on reveal.js
+				dependencies: [
+					{ src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+					{ src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+					{ src: 'plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+					{ src: 'plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
+				]
+			});
+
+		</script>
+
+	</body>
+</html>

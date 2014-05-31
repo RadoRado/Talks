@@ -1,0 +1,19 @@
+{
+  "name": "bgws14-examples",
+  "version": "0.0.1",
+  "description": "Examples for the Functional JavaScript talk, given at Bulgaria Web Summit 2014",
+  "main": "examples.js",
+  "dependencies": {
+    "wu": "^0.1.8"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "functional",
+    "programming"
+  ],
+  "author": "RadoRado",
+  "license": "MIT"
+}

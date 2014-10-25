@@ -1,1 +1,1 @@
-wrk -t5 -c10 -d30s http://localhost:8000
+wrk -t12 -c400 -d30s http://localhost:8000

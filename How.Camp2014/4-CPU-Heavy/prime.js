@@ -1,16 +1,20 @@
+/*global exports */
+
 function isPrime(number) {
+  'use strict';
   // for is the best in this case
   var i = 0;
 
   for (i = 2; i * i <= number; i += 1) {
-    if (Math.floor(number % i) === 0) {
+    if (number % i === 0) {
       return false;
     }
   }
   return number >= 2;
-};
+}
 
 function nextPrimeFrom(thatPrime) {
+  'use strict';
   var nextMaybePrime = thatPrime + 1;
 
   while(!isPrime(nextMaybePrime)) {
@@ -21,7 +25,8 @@ function nextPrimeFrom(thatPrime) {
 }
 
 
-var primeFactorization = function (number) {
+function primeFactorization(number) {
+  'use strict';
   var currentPrime = 2,
         result = [];
 
@@ -39,13 +44,14 @@ var primeFactorization = function (number) {
   }
 
   return result;
-};
+}
 
-var displayFactorization = function (factorization) {
+function displayFactorization(factorization) {
+  'use strict';
   return factorization.map(function (tuple) {
     return tuple.join('^');
   }).join(' * ');
-};
+}
 
 exports.primeFactorization = primeFactorization;
 exports.displayFactorization = displayFactorization;

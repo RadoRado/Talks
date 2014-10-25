@@ -1,4 +1,5 @@
 class ZnGroup:
+
     def __init__(self, n):
         self.n = n
         self.identity = 0

@@ -1,16 +1,25 @@
-var cluster = require('cluster');
-var http = require('http');
-var numCPUs = require('os').cpus().length;
+/* global require, console */
 
-if (cluster.isMaster) {
-  // Fork workers.
-  for (var i = 0; i < numCPUs; i++) {
-    cluster.fork();
+(function() {
+  'use strict';
+  var cluster = require('cluster'),
+        numCPUs = require('os').cpus().length,
+        i = 0;
+
+  if (cluster.isMaster) {
+    // Fork workers.
+    for (i; i < numCPUs; i++) {
+      cluster.fork();
+    }
+
+    cluster.on('exit', function(worker, code, signal) {
+      console.log('worker ' + worker.process.pid + ' died');
+      console.log(code);
+      console.log(signal);
+    });
+  } else {
+    console.log('WORK WORK');
   }
+} ());
 
-  cluster.on('exit', function(worker, code, signal) {
-    console.log('worker ' + worker.process.pid + ' died');
-  });
-} else {
-  console.log("WORK WORK");
-}
+

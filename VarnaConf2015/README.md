@@ -2,6 +2,7 @@
 
 * [Slides can be found here](http://slides.com/hackbulgaria/functional-patterns-in-javascript)
 * Code is located in this repository.
+* [Ramda library](https://github.com/ramda/ramda)
 
 ## Follow-up reading
 

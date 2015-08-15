@@ -1,0 +1,14 @@
+{
+  "name": "functional-javascript-patterns-varnaconf2015",
+  "version": "1.0.0",
+  "description": "Code samples from the Functional JavaScript Pattenrs talk at VarnaConf 2015",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "radorado@hackbulgaria.com",
+  "license": "MIT",
+  "dependencies": {
+    "ramda": "^0.17.1"
+  }
+}

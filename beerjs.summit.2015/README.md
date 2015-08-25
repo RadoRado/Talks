@@ -1,5 +1,7 @@
 # Call Me Maybe
 
+![](beerjs.jpg)
+
 A lighting talk about Functors & Maybe, showed in JS.
 
 * [Slides can be found here](http://slides.com/hackbulgaria/functional-patterns-in-javascript-33)

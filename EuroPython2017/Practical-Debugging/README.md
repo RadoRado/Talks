@@ -7,3 +7,4 @@
 
 * [pdb cheatsheet](https://github.com/nblock/pdb-cheatsheet)
 * [ipdb](https://github.com/gotcha/ipdb)
+* [More visual debugging - wdb](https://github.com/Kozea/wdb)

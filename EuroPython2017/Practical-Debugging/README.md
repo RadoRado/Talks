@@ -1,7 +1,7 @@
 # Practical Debugging - Tips, Tricks and Ways to Think
 
 * [Description](https://ep2017.europython.eu/conference/talks/practical-debugging-tips-tricks-and-ways-to-think)
-* [Slides]()
+* [Slides](http://slides.com/hackbulgaria/practical-debugging-tips-tricks-ways-to-think?token=jLj6nrM1)
 
 ## Resources
 
